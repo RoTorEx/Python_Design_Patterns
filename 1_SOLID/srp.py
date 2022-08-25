@@ -16,8 +16,8 @@ class Journal:
     def __str__(self):
         return "\n".join(self.entries)
 
-    """Хранение и удаление записей это основная и единственная обязанность журнала,
-    поэтому прицип единственной отвенности не нарушается."""
+    """Keeping and deleting records is the main and only responsibility of the journal,
+     therefore the principle of sole responsibility is not violated."""
 
     def save(self, filename):  # !Break SRP with extra methods
         file = open(filename, "w")
@@ -30,8 +30,8 @@ class Journal:
     def load_from_web(self, uri):  # !Break SRP with extra methods
         pass
 
-    """Приведённый выше код вынесем в отдельный класс управления журналом.
-    Реорганизуем код для разделения отвественности."""
+    """Let's move the above code into a separate log management class.
+     Reorganize the code for separation of concerns."""
 
 
 class PersistenceManager:
@@ -42,7 +42,7 @@ class PersistenceManager:
         file.close()
 
 
-"""Антипаттрен - это создание всемогущих объектов, которые выполняет и могут всё."""
+"""Antipattren is the creation of omnipotent objects that do and can do anything."""
 
 j = Journal()
 j.add_entry("I cried today.")
