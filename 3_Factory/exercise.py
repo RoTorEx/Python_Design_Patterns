@@ -1,9 +1,9 @@
-""" Задача на паттерн Фабрика
-Дан класс Person. У него есть два атрибута: id и name .
+""" Pattern task Factory
+Given the class Man. It has two attributes: id and name .
 
-Реализуйте PersonFactory с не статическим методом create_person(), который принимает имя человека и возвращет экземпляр
-класс Person с этим именем и id. Поле id должно начинаться с нуля.
-То есть, фабрика вернёт первый экземпляр с id = 0, второй с id = 1 и так далее."""
+Implement a PersonFactory with a raw create_person() method that takes a person's name and is instantiated
+class Person with this name and id. The id field must start from zero.
+That is, the factory will return the first instance with id = 0, the second one with id = 1, and so on."""
 
 
 """
@@ -29,6 +29,14 @@ class Person:
 
 
 class PersonFactory:
+    id = 0
+
     def create_person(self, name):
-        # todo
-        pass
+        p = Person(PersonFactory.id, name)
+        PersonFactory.id += 1
+        return p
+
+
+for name in ["Alex", "Sasha", "Valeriy", "Nikita"]:
+    person = PersonFactory().create_person(f"{name}")
+    print(person.id, person.name)
