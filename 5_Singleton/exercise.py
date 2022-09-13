@@ -16,7 +16,7 @@ def is_singleton(factory):
 
 # ?Solution
 def is_singleton(factory):
-    # ToDo: call factory() and return true or false
-    # depending on whether the factory makes a
-    # singleton or not
-    pass
+    x = factory()
+    y = factory()
+
+    return x is y
