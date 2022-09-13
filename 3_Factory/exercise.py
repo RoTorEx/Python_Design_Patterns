@@ -1,6 +1,6 @@
 """ Pattern task Factory
-Given the class Man. It has two attributes: id and name .
 
+Given the class Man. It has two attributes: id and name.
 Implement a PersonFactory with a raw create_person() method that takes a person's name and is instantiated
 class Person with this name and id. The id field must start from zero.
 That is, the factory will return the first instance with id = 0, the second one with id = 1, and so on."""
@@ -16,7 +16,7 @@ class Person:
 
 class PersonFactory:
     def create_person(self, name):
-        # todo
+        # ToDo
         pass
 """
 
