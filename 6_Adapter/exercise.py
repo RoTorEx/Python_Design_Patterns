@@ -36,5 +36,18 @@ def calculate_area(rc):
 
 class SquareToRectangleAdapter:
     def __init__(self, square):
-        # ToDo
-        pass
+        self.square = square
+
+    @property
+    def width(self):
+        return self.square.side
+
+    @property
+    def height(self):
+        return self.square.side
+
+
+s = Square(50)
+sa = SquareToRectangleAdapter(s)
+
+print(f"{sa.width} * {sa.height} = {calculate_area(sa)}")
