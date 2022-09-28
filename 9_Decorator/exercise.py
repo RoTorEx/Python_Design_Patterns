@@ -69,8 +69,7 @@ class Circle:
         self.radius *= factor
 
     def __str__(self):
-        pass
-        # ToDo
+        return f"A circle of radius {self.radius}"
 
 
 class Square:
@@ -78,8 +77,7 @@ class Square:
         self.side = side
 
     def __str__(self):
-        pass
-        # ToDo
+        return f"A square with side {self.side}"
 
 
 class ColoredShape:
@@ -88,10 +86,23 @@ class ColoredShape:
         self.shape = shape
 
     def resize(self, factor):
-        pass
-        # ToDo
-        # note that a Square doesn't have resize()
+        r = getattr(self.shape, "resize", None)
+        if callable(r):
+            self.shape.resize(factor)
 
     def __str__(self):
-        pass
-        # ToDo
+        return f"{self.shape} has the color {self.color}"
+
+
+circle = Circle(5)
+circle_bigger = Circle(8)
+circle_bigger.resize(2)
+square = Square(10)
+
+print(circle)
+print(circle_bigger)
+
+blue_circle = ColoredShape(circle, "blue")
+red_square = ColoredShape(square, "red")
+
+print(f"\n{blue_circle}\n{red_square}")
