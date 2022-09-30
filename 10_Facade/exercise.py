@@ -136,5 +136,16 @@ class Verifier:
 
 class MagicSquareGenerator:
     def generate(self, size):
-        pass
-        # ToDo - return a magic square of the given size
+        g = Generator()
+        s = Splitter()
+        v = Verifier()
+
+        while True:
+            square = []
+            for x in range(size):
+                square.append(g.generate(size))
+
+            if v.verify(s.split(square)):
+                break
+
+        return square
