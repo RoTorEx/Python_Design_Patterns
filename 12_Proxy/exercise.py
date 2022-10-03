@@ -52,4 +52,33 @@ class ResponsiblePerson:
     def __init__(self, person):
         self.person = person
 
-    # ToDo
+    @property
+    def age(self):
+        return self.person.age
+
+    @age.setter
+    def age(self, value):
+        self.person.age = value
+
+    def drink(self):
+        if self.age >= 18:
+            return self.person.drink()
+        return "Too young!"
+
+    def drive(self):
+        if self.age >= 16:
+            return self.person.drive()
+        return "To young!"
+
+    def drink_and_drive(self):
+        return "Dead..."
+
+
+person = Person(18)
+print(f"{18} years old:\n{person.drink()} <> {person.drive()} <> {person.drink_and_drive()}")
+
+for age in [10, 17, 15, 22, 40]:
+    person = Person(age)
+    res_person = ResponsiblePerson(person)
+
+    print(f"{age} years old:\n{res_person.drink()} <> {res_person.drive()} <> {res_person.drink_and_drive()}\n")
