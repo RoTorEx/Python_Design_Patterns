@@ -52,5 +52,23 @@ class Account:
         self.balance = balance
 
     def process(self, command):
-        pass
-        # ToDo
+        if command.action == Command.Action.DEPOSIT:
+            self.balance += command.amount
+            command.success = True
+
+        elif command.action == Command.Action.WITHDRAW:
+            command.success = self.balance >= command.amount
+
+            if command.success:
+                self.balance -= command.amount
+
+
+account = Account()
+cmd_dp = Command(Command.Action.DEPOSIT, 6000)
+cmd_wd = Command(Command.Action.WITHDRAW, 949)
+
+print(account.balance)  # 0
+account.process(cmd_dp)
+print(account.balance)  # 6000
+account.process(cmd_wd)
+print(account.balance)  # 5051
