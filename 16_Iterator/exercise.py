@@ -41,5 +41,10 @@ class Node:
             self.right.parent = self
 
     def traverse_preorder(self):
-        pass
-        # ToDo - return inorder values (not Nodes)
+        yield self.value
+
+        if self.left:
+            yield from self.left.traverse_preorder()
+
+        if self.right:
+            yield from self.right.traverse_preorder()
