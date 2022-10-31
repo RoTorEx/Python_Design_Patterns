@@ -9,6 +9,9 @@ the token is passed from the outside as a reference, and then its internal value
 a case, the machine must still return the correct system state!"""
 
 
+from copy import deepcopy
+
+
 """
 # *Start template
 class Token:
@@ -55,9 +58,8 @@ class TokenMachine:
         return self.add_token(Token(value))
 
     def add_token(self, token):
-        pass
-        # ToDo
+        self.tokens.append(token)
+        return Memento(deepcopy(self.tokens))
 
     def revert(self, memento):
-        pass
-        # ToDo
+        self.tokens = [Token(x.value) for x in memento]
