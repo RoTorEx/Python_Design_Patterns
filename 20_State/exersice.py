@@ -1,7 +1,8 @@
 """State pattern task
 
 A combination lock is a lock that opens after entering the correct sequence of numbers.
-The lock is programmed for a combination (say, 12345) and then the user is expected to enter that exact sequence to open the lock.
+The lock is programmed for a combination (say, 12345) and then the user is expected to enter that exact sequence to
+open the lock.
 
 The lock has a Status, which reflects the current state of the lock.
 
@@ -58,13 +59,21 @@ class CombinationLock:
 # ?Solution
 class CombinationLock:
     def __init__(self, combination):
-        self.status = "LOCKED"
-        # ToDo
+        self.combination = combination
+        self.reset()
 
     def reset(self):
-        pass
-        # ToDo - reset lock to LOCKED state
+        self.status = 'LOCKED'
+        self.digits_entered = 0
+        self.failed = False
 
     def enter_digit(self, digit):
-        pass
-        # ToDo
+        if self.status == 'LOCKED':
+            self.status = ''
+        self.status += str(digit)
+        if self.combination[self.digits_entered] != digit:
+            self.failed = True
+        self.digits_entered += 1
+
+        if self.digits_entered == len(self.combination):
+            self.status = 'ERROR' if self.failed else 'OPEN'
