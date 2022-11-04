@@ -103,12 +103,12 @@ class ExpressionPrinter:
 
 # ?Solution
 def _qualname(obj):
-    "Get the fully-qualified name of an object (including module)."
+    """Get the fully-qualified name of an object (including module)."""
     return obj.__module__ + "." + obj.__qualname__
 
 
 def _declaring_class(obj):
-    "Get the name of the class that declared an object."
+    """Get the name of the class that declared an object."""
     name = _qualname(obj)
     return name[: name.rfind(".")]
 
@@ -119,7 +119,7 @@ _methods = {}
 
 # Delegating visitor implementation
 def _visitor_impl(self, arg):
-    "Actual visitor method implementation."
+    """Actual visitor method implementation."""
     key = (_qualname(type(self)), type(arg))
     if key not in _methods:
         raise Exception(f"Key {key} not found")
@@ -129,7 +129,7 @@ def _visitor_impl(self, arg):
 
 # The actual @visitor decorator
 def visitor(arg_type):
-    "Decorator that creates a visitor method."
+    """Decorator that creates a visitor method."""
 
     def decorator(fn):
         declaring_class = _declaring_class(fn)
@@ -148,11 +148,17 @@ class Value:
     def __init__(self, value):
         self.value = value
 
+    def accept(self, visitor):
+        visitor.visit(self)
+
 
 class AdditionExpression:
     def __init__(self, left, right):
         self.right = right
         self.left = left
+
+    def accept(self, visitor):
+        visitor.visit(self)
 
 
 class MultiplicationExpression:
@@ -160,12 +166,31 @@ class MultiplicationExpression:
         self.right = right
         self.left = left
 
+    def accept(self, visitor):
+        visitor.visit(self)
+
 
 class ExpressionPrinter:
     def __init__(self):
-        pass
-        # ToDo :)
+        self.buffer = []
+
+    @visitor(Value)
+    def visit(self, e):
+        self.buffer.append(str(e.value))
+
+    @visitor(AdditionExpression)
+    def visit(self, e):
+        self.buffer.append("(")
+        e.left.accept(self)
+        self.buffer.append("+")
+        e.right.accept(self)
+        self.buffer.append(")")
+
+    @visitor(MultiplicationExpression)
+    def visit(self, e):
+        e.left.accept(self)
+        self.buffer.append("*")
+        e.right.accept(self)
 
     def __str__(self):
-        pass
-        # ToDo
+        return "".join(self.buffer)
