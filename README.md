@@ -1,1 +1,1 @@
-# Python Design Patterns by Udemy course
+# Python Design Patterns
