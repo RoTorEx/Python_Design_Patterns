@@ -60,14 +60,13 @@ class DiscriminantStrategy(ABC):
 
 class OrdinaryDiscriminantStrategy(DiscriminantStrategy):
     def calculate_discriminant(self, a, b, c):
-        pass
-        # ToDo
+        return b * b - 4 * a * c
 
 
 class RealDiscriminantStrategy(DiscriminantStrategy):
     def calculate_discriminant(self, a, b, c):
-        pass
-        # ToDo
+        result = b * b - 4 * a * c
+        return result if result >= 0 else float("nan")
 
 
 class QuadraticEquationSolver:
@@ -75,6 +74,7 @@ class QuadraticEquationSolver:
         self.strategy = strategy
 
     def solve(self, a, b, c):
-        "Returns a pair of complex (!) values."
-        pass
-        # ToDo
+        """Returns a pair of complex (!) values"""
+        disc = complex(self.strategy.calculate_discriminant(a, b, c), 0)
+        root_disc = cmath.sqrt(disc)
+        return ((-b + root_disc) / (2 * a), (-b - root_disc) / (2 * a))
